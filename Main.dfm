@@ -58,20 +58,45 @@ object frmMain: TfrmMain
     TabOrder = 1
   end
   object btnConvert: TButton
-    Left = 752
-    Top = 46
+    Left = 750
+    Top = 175
     Width = 129
     Height = 25
     Action = aConvert
     TabOrder = 2
   end
-  object JvVersionControlActionList1: TJvVersionControlActionList
-    Left = 754
-    Top = 122
+  object rgConversionMethods: TJvRadioGroup
+    Left = 722
+    Top = 46
+    Width = 185
+    Height = 105
+    Caption = #1052#1077#1090#1086#1076#1099' '#1087#1088#1077#1086#1073#1088#1072#1079#1086#1074#1072#1085#1080#1103
+    Items.Strings = (
+      'MultiByteToWideChar'
+      'WideCharToMultiByte')
+    TabOrder = 3
+    CaptionVisible = True
+  end
+  object btnClear: TButton
+    Left = 750
+    Top = 220
+    Width = 129
+    Height = 25
+    Action = aClear
+    TabOrder = 4
+  end
+  object vcalMain: TJvVersionControlActionList
+    Left = 498
+    Top = 6
     object aConvert: TAction
       Caption = #1055#1088#1077#1086#1073#1088#1072#1079#1086#1074#1072#1090#1100
       OnExecute = aConvertExecute
       OnUpdate = aConvertUpdate
+    end
+    object aClear: TAction
+      Caption = #1054#1095#1080#1089#1090#1080#1090#1100
+      OnExecute = aClearExecute
+      OnUpdate = aClearUpdate
     end
   end
 end
