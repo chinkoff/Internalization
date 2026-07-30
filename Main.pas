@@ -70,6 +70,7 @@ begin
       case rgConversionMethods.ItemIndex of
         0 : AnsiToUnicode;
         1 : UnicodeToAnsi;
+        2 : UnicodeEscToAnsi;
       end;  { End of case }
     end;
 end;

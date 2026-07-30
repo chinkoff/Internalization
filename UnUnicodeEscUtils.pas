@@ -3,7 +3,7 @@ unit UnUnicodeEscUtils;
 interface
 
 uses
-  Windows, Classes;
+  Windows, Classes, SysUtils;
 
 type
   TUnicodeEscapeString = String;
@@ -37,17 +37,44 @@ const
 
 function UnicodeEscToString(AUEStr: TUnicodeEscapeString): String;
 var
+  i : Integer;
+  j : Integer;
   lInputStr : String;
+  lUEChar : String;
   lPosUEChar : Integer;
   lPredPos : Integer;
 begin
   Result := '';
-  lInputStr := AUEStr;
-  lPosUEChar := PosEx('\u0', lInputStr);
+  lInputStr := StringReplace(AUEStr, '\"', '"', [rfReplaceAll]);
+  lPredPos := 1;
+  lPosUEChar := PosEx('\u0', lInputStr, lPredPos);
   if lPosUEChar>0 then
     begin
-      while Length(lInputStr)>0 do ;
-    end;
+      Result := Copy(lInputStr, 1, lPosUEChar-1);
+      while lPosUEChar>0 do
+        begin
+          lUEChar := Copy(lInputStr, lPosUEChar, 6);
+          i := StrToInt('$'+Copy(lUEChar, 4, 2));
+          j := StrToInt('$'+Copy(lUEChar, 6, 1));
+          Result := Result + cUnicodeEscCharList[i, j];
+          lPredPos := lPosUEChar + 6;
+          if lPredPos>Length(lInputStr) then
+            lPosUEChar := 0
+          else
+            begin
+              lPosUEChar := PosEx('\u0', lInputStr, lPredPos);
+              if lPosUEChar>lPredPos then
+                begin
+                  Result := Result + Copy(lInputStr, lPredPos, lPosUEChar-lPredPos);
+                  lPredPos := lPosUEChar;
+                end;
+            end;
+        end;
+      if lPredPos<Length(lInputStr)then
+        Result := Result + Copy(lInputStr, lPredPos, Length(lInputStr)-lPredPos+1);
+    end
+  else
+    Result := lInputStr;
 end;
 
 end.

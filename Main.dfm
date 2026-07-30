@@ -1,6 +1,6 @@
 object frmMain: TfrmMain
-  Left = 484
-  Top = 293
+  Left = 302
+  Top = 112
   Width = 924
   Height = 497
   Caption = #1048#1085#1090#1077#1088#1085#1072#1083#1080#1079#1072#1094#1080#1103
@@ -73,7 +73,8 @@ object frmMain: TfrmMain
     Caption = #1052#1077#1090#1086#1076#1099' '#1087#1088#1077#1086#1073#1088#1072#1079#1086#1074#1072#1085#1080#1103
     Items.Strings = (
       'MultiByteToWideChar'
-      'WideCharToMultiByte')
+      'WideCharToMultiByte'
+      'UnicodeEscToAnsi')
     TabOrder = 3
     CaptionVisible = True
   end
