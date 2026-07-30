@@ -29,6 +29,8 @@ type
     FCurrCP : Cardinal;
     FLastErr : Cardinal;
     procedure AnsiToUnicode;
+    procedure UnicodeToAnsi;
+    procedure UnicodeEscToAnsi;
   public
     { Public declarations }
   end;
@@ -39,6 +41,9 @@ var
 implementation
 
 {$R *.dfm}
+
+uses
+  UnUnicodeEscUtils;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
@@ -64,7 +69,7 @@ begin
       memOutputString.Lines.Add('Текст после преобразования:');
       case rgConversionMethods.ItemIndex of
         0 : AnsiToUnicode;
-        1 : ;
+        1 : UnicodeToAnsi;
       end;  { End of case }
     end;
 end;
@@ -110,6 +115,24 @@ begin
     except on E: Exception do
       memOutputString.Lines.Add('Исключение '+E.ClassName+': '+E.Message)
     end;
+end;
+
+procedure TfrmMain.UnicodeToAnsi;
+var
+  lInputStr : String;
+  lLenInputStr : Integer;
+  lpMultiByteStr : PAnsiChar;
+begin
+end;
+
+procedure TfrmMain.UnicodeEscToAnsi;
+var
+  lUEStr : TUnicodeEscapeString;
+  lAnsiStr : String;
+begin
+  lUEStr := memInputString.Text;
+  lAnsiStr := UnicodeEscToString(lUEStr);
+  memOutputString.Lines.Add(lAnsiStr);
 end;
 
 end.

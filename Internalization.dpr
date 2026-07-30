@@ -2,7 +2,8 @@ program Internalization;
 
 uses
   Forms,
-  Main in 'Main.pas' {frmMain};
+  Main in 'Main.pas' {frmMain},
+  UnUnicodeEscUtils in 'UnUnicodeEscUtils.pas';
 
 {$R *.res}
 
