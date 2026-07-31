@@ -46,6 +46,7 @@ object frmMain: TfrmMain
     Height = 165
     Lines.Strings = (
       'memInputString')
+    ScrollBars = ssBoth
     TabOrder = 0
   end
   object memOutputString: TJvMemo
@@ -55,6 +56,7 @@ object frmMain: TfrmMain
     Height = 165
     Lines.Strings = (
       'memOutputString')
+    ScrollBars = ssBoth
     TabOrder = 1
   end
   object btnConvert: TButton
@@ -69,12 +71,13 @@ object frmMain: TfrmMain
     Left = 722
     Top = 46
     Width = 185
-    Height = 105
+    Height = 121
     Caption = #1052#1077#1090#1086#1076#1099' '#1087#1088#1077#1086#1073#1088#1072#1079#1086#1074#1072#1085#1080#1103
     Items.Strings = (
       'MultiByteToWideChar'
       'WideCharToMultiByte'
-      'UnicodeEscToAnsi')
+      'UnicodeEscToAnsi'
+      'AnsiToUnicodeEsc')
     TabOrder = 3
     CaptionVisible = True
   end

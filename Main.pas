@@ -31,6 +31,7 @@ type
     procedure AnsiToUnicode;
     procedure UnicodeToAnsi;
     procedure UnicodeEscToAnsi;
+    procedure AnsiToUnicodeEsc;
   public
     { Public declarations }
   end;
@@ -71,6 +72,7 @@ begin
         0 : AnsiToUnicode;
         1 : UnicodeToAnsi;
         2 : UnicodeEscToAnsi;
+        3 : AnsiToUnicodeEsc;
       end;  { End of case }
     end;
 end;
@@ -134,6 +136,16 @@ begin
   lUEStr := memInputString.Text;
   lAnsiStr := UnicodeEscToString(lUEStr);
   memOutputString.Lines.Add(lAnsiStr);
+end;
+
+procedure TfrmMain.AnsiToUnicodeEsc;
+var
+  lAnsiStr : String;
+  lUEStr : TUnicodeEscapeString;
+begin
+  lAnsiStr := memInputString.Lines.Text;
+  lUEStr := StringToUnicodeEsc(lAnsiStr);
+  memOutputString.Lines.Add(lUEStr);
 end;
 
 end.

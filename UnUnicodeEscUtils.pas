@@ -8,7 +8,8 @@ uses
 type
   TUnicodeEscapeString = String;
 
-function UnicodeEscToString(AUEStr: TUnicodeEscapeString): String;
+function UnicodeEscToString(const AUEStr: TUnicodeEscapeString): String;
+function StringToUnicodeEsc(const AStr: String): TUnicodeEscapeString;
 
 implementation
 
@@ -35,7 +36,7 @@ const
     {U+04Fx}  ('?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?')
   );
 
-function UnicodeEscToString(AUEStr: TUnicodeEscapeString): String;
+function UnicodeEscToString(const AUEStr: TUnicodeEscapeString): String;
 var
   i : Integer;
   j : Integer;
@@ -75,6 +76,41 @@ begin
     end
   else
     Result := lInputStr;
+end;
+
+function StringToUnicodeEsc(const AStr: String): TUnicodeEscapeString;
+var
+  i : Byte;
+  j : Byte;
+  lInputStr : String;
+  lAnsiChar : AnsiChar;
+  lIsFound : Boolean;
+begin
+  Result := '';
+  lInputStr := AStr;
+  while Length(lInputStr)>0 do
+    begin
+      lAnsiChar := lInputStr[1];
+      lInputStr := Copy(lInputStr, 2, Length(lInputStr));
+      lIsFound := False;
+      i := $40;
+      while (i<=$4F) and not lIsFound do
+        begin
+          j := $0;
+          while (j<=$F) and not lIsFound do
+            begin
+              lIsFound := lAnsiChar=cUnicodeEscCharList[i, j];
+              if not lIsFound then
+                Inc(j);
+            end;
+          if not lIsFound then
+            Inc(i);
+        end;
+      if lIsFound then
+        Result := Result + '\u0' + IntToHex(i, 0) + IntToHex(j, 0)
+      else
+        Result := Result + lAnsiChar;
+    end;
 end;
 
 end.
